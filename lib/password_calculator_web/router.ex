@@ -5,7 +5,11 @@ defmodule PasswordCalculatorWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", PasswordCalculatorWeb do
+  scope "/api/v1", PasswordCalculatorWeb.V1 do
     pipe_through :api
+
+    post "/users", UserController, :create
   end
+
 end
+
