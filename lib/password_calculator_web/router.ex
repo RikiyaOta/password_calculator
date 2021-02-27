@@ -10,6 +10,4 @@ defmodule PasswordCalculatorWeb.Router do
 
     post "/users", UserController, :create
   end
-
 end
-

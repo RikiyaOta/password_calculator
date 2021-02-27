@@ -5,5 +5,4 @@ defmodule PasswordCalculatorWeb.V1.UserController do
   def create(conn, _params) do
     conn
   end
-
 end

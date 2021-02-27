@@ -22,5 +22,4 @@ defmodule PasswordCalculatorWeb.V1.Parameter.UserParameter do
     |> cast(params, @required_fields)
     |> validate_required(@required_fields)
   end
-
 end
