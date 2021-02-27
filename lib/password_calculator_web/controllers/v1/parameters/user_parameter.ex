@@ -1,6 +1,7 @@
-defmodule PasswordCalculatorWeb.V1.Parameter.UserParameter do
+defmodule PasswordCalculatorWeb.V1.Parameter.CreateUserParameter do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Ecto.Changeset
 
   @primary_key false
   embedded_schema do
@@ -17,9 +18,34 @@ defmodule PasswordCalculatorWeb.V1.Parameter.UserParameter do
     phone_number
   )a
 
-  def changeset(%__MODULE__{} = struct, params) do
+  def validate(params), do: changeset(%__MODULE__{}, params)
+
+  def to_map(%__MODULE__{} = struct), do: Map.from_struct(struct)
+
+  def from_changeset(%Changeset{valid?: true, changes: changes}),
+    do: {:ok, struct(__MODULE__, changes)}
+
+  def from_changeset(changeset), do: {:error, {:invalid_input, changeset}}
+
+  defp changeset(%__MODULE__{} = struct, params) do
     struct
     |> cast(params, @required_fields)
     |> validate_required(@required_fields)
+    |> validate_email()
+    |> validate_password_length()
+    |> validate_phone_number()
+  end
+
+  defp validate_email(%Changeset{} = changeset) do
+    email_format = ~r/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    validate_format(changeset, :email, email_format)
+  end
+
+  defp validate_password_length(%Changeset{} = changeset),
+    do: validate_length(changeset, :password, min: 6)
+
+  defp validate_phone_number(%Changeset{} = changeset) do
+    phone_number_format = ~r/^0\d{9,10}$/
+    validate_format(changeset, :phone_number, phone_number_format)
   end
 end

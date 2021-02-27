@@ -1,1 +1,0 @@
-alias PasswordCalculatorWeb.V1.Parameter.UserParameter
