@@ -11,7 +11,7 @@ defmodule PasswordCalculator.Repository.UserRepository do
     params =
       params
       |> CreateUserParameter.to_map()
-      |> Map.put(:base_key, gen_base_key())
+      |> Map.put(:master_key, gen_master_key())
       |> Map.put(:inserted_at, now)
       |> Map.put(:updated_at, now)
 
@@ -24,11 +24,16 @@ defmodule PasswordCalculator.Repository.UserRepository do
     end
   end
 
-  @base_key_length 512
-  defp gen_base_key do
-    @base_key_length
+  # TODO: Impl
+  def update(_) do
+    :ok
+  end
+
+  @master_key_length 256
+  defp gen_master_key do
+    @master_key_length
     |> :crypto.strong_rand_bytes()
     |> Base.url_encode64()
-    |> binary_part(0, @base_key_length)
+    |> binary_part(0, @master_key_length)
   end
 end

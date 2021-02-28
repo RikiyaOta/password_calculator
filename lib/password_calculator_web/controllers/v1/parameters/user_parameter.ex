@@ -2,6 +2,9 @@ defmodule PasswordCalculatorWeb.V1.Parameter.CreateUserParameter do
   use Ecto.Schema
   import Ecto.Changeset
   alias Ecto.Changeset
+  alias PasswordCalculatorWeb.V1.Parameter.ParameterBehaviour
+
+  @behaviour ParameterBehaviour
 
   @primary_key false
   embedded_schema do
@@ -18,10 +21,13 @@ defmodule PasswordCalculatorWeb.V1.Parameter.CreateUserParameter do
     phone_number
   )a
 
+  @impl ParameterBehaviour
   def validate(params), do: changeset(%__MODULE__{}, params)
 
+  @impl ParameterBehaviour
   def to_map(%__MODULE__{} = struct), do: Map.from_struct(struct)
 
+  @impl ParameterBehaviour
   def from_changeset(%Changeset{valid?: true, changes: changes}),
     do: {:ok, struct(__MODULE__, changes)}
 
