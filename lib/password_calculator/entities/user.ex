@@ -9,7 +9,7 @@ defmodule PasswordCalculator.Entity.User do
     field :password, :string
     field :name, :string
     field :phone_number, :string
-    field :base_key, :string
+    field :master_key, :string
     field :inserted_at, :utc_datetime_usec
     field :updated_at, :utc_datetime_usec
   end
@@ -19,7 +19,7 @@ defmodule PasswordCalculator.Entity.User do
     password
     name
     phone_number
-    base_key
+    master_key
     inserted_at
     updated_at
   )a

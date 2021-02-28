@@ -19,10 +19,9 @@ defmodule PasswordCalculatorWeb.V1.SessionController do
   end
 
   defp login_reply(conn, {:ok, user}) do
-    {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user)
+    {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user, %{}, ttl: {10, :minutes})
 
-    conn
-    |> json(%{message: :login_succeeded, token: jwt})
+    render(conn, "login.json", jwt: jwt)
   end
 
   defp login_reply(conn, {:error, reason}) do
@@ -33,6 +32,6 @@ defmodule PasswordCalculatorWeb.V1.SessionController do
   defp respond_for_invalid_credentials(conn) do
     conn
     |> put_status(401)
-    |> json(%{message: :invalid_credentials})
+    |> json(%{message: "invalid_credentials"})
   end
 end

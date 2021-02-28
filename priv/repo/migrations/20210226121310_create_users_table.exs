@@ -9,7 +9,7 @@ defmodule PasswordCalculator.Repo.Migrations.CreateUsersTable do
         password varchar(256) NOT NULL,
         name varchar(128) NOT NULL,
         phone_number varchar(32) NOT NULL,
-        base_key varchar(512) NOT NULL,
+        master_key varchar(256) NOT NULL,
         inserted_at timestamp with time zone NOT NULL,
         updated_at timestamp with time zone NOT NULL,
 
