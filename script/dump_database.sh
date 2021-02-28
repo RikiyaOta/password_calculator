@@ -14,6 +14,8 @@ if [ "$1" != "prod" ] && [ "$1" != "dev" ]; then
   exit 1
 fi
 
+echo "Start dumping database ... ENV=$1"
+
 MIX_ENV=$1
 
 BASE_DIR=$(dirname $0)
@@ -34,3 +36,10 @@ PGPASSFILE=$PGPASSFILE pg_dump \
   --port=$PORT \
   --username=$USERNAME \
   --file=$OUTPUT_FILE
+
+COMPRESSED_FILE_NAME="${OUTPUT_FILE}.tar.gz"
+
+tar -zcvf $COMPRESSED_FILE_NAME $OUTPUT_FILE
+rm -f $OUTPUT_FILE
+
+echo "Finished dumping database. FILE=$OUTPUT_FILE"
