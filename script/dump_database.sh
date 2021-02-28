@@ -14,8 +14,6 @@ if [ "$1" != "prod" ] && [ "$1" != "dev" ]; then
   exit 1
 fi
 
-echo "Start dumping database ... ENV=$1"
-
 MIX_ENV=$1
 
 BASE_DIR=$(dirname $0)
@@ -28,18 +26,18 @@ PORT="5432"
 DBNAME="password_calculator_db"
 
 TIMESTAMP=$(date '+%Y%m%d%H%M%S')
-OUTPUT_FILE="./backup/${DBNAME}__${MIX_ENV}__${TIMESTAMP}.sql"
+OUTPUT_FILE_NAME="${DBNAME}__${MIX_ENV}__${TIMESTAMP}.sql"
 
 PGPASSFILE=$PGPASSFILE pg_dump \
   --dbname=$DBNAME \
   --host=$HOST \
   --port=$PORT \
   --username=$USERNAME \
-  --file=$OUTPUT_FILE
+  --file="./backup/$OUTPUT_FILE_NAME"
 
-COMPRESSED_FILE_NAME="${OUTPUT_FILE}.tar.gz"
+COMPRESSED_FILE_NAME="${OUTPUT_FILE_NAME}.tar.gz"
 
-tar -zcvf $COMPRESSED_FILE_NAME $OUTPUT_FILE
-rm -f $OUTPUT_FILE
+tar -zcf "./backup/$COMPRESSED_FILE_NAME" "./backup/$OUTPUT_FILE_NAME"
+rm -f "./backup/$OUTPUT_FILE_NAME"
 
-echo "Finished dumping database. FILE=$OUTPUT_FILE"
+echo $COMPRESSED_FILE_NAME

@@ -8,8 +8,10 @@
 use Mix.Config
 
 config :password_calculator,
+  mix_env: Mix.env(),
   ecto_repos: [PasswordCalculator.Repo],
-  generators: [binary_id: true]
+  generators: [binary_id: true],
+  secret_relative_dir: "secrets/#{Mix.env()}/"
 
 # Configures the endpoint
 config :password_calculator, PasswordCalculatorWeb.Endpoint,

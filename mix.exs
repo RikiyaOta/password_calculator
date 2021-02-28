@@ -43,6 +43,10 @@ defmodule PasswordCalculator.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 2.0"},
       {:argon2_elixir, "~> 2.0"},
+      {:quantum, "~> 3.0"},
+      {:timex, "~> 3.6"},
+      {:joken, "~> 2.0"},
+      {:httpoison, "~> 1.8"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
     ]
   end

@@ -31,3 +31,4 @@ password_calculator-*.tar
 /script/auth
 /script/hosts
 /script/backup
+/secrets

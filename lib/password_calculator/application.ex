@@ -14,9 +14,10 @@ defmodule PasswordCalculator.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: PasswordCalculator.PubSub},
       # Start the Endpoint (http/https)
-      PasswordCalculatorWeb.Endpoint
+      PasswordCalculatorWeb.Endpoint,
       # Start a worker by calling: PasswordCalculator.Worker.start_link(arg)
       # {PasswordCalculator.Worker, arg}
+      PasswordCalculator.Scheduler
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
