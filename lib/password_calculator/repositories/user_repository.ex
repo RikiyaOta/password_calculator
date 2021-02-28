@@ -24,6 +24,11 @@ defmodule PasswordCalculator.Repository.UserRepository do
     end
   end
 
+  # TODO: Impl
+  def update(_) do
+    :ok
+  end
+
   @base_key_length 512
   defp gen_base_key do
     @base_key_length
