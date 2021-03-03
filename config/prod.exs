@@ -19,14 +19,8 @@ config :password_calculator, PasswordCalculatorWeb.Endpoint,
     port: 443,
     cipher_suite: :strong,
     otp_app: :password_calculator,
-    keyfile:
-      System.get_env(
-        "/home/ubuntu/password_calculator/secrets/prod/ssl_certificate/api_password_calculator.key"
-      ),
-    certfile:
-      System.get_env(
-        "/home/ubuntu/password_calculator/secrets/prod/ssl_certificate/api_password_calculator.crt"
-      )
+    keyfile: System.get_env("SSL_KEY_PATH"),
+    certfile: System.get_env("SSL_CERT_PATH")
   ],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   server: true
