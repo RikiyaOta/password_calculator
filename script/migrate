@@ -28,6 +28,6 @@ ECTO_COMMAND=$2
 
 cd $(dirname $0)/../
 
-source secrets/${MIX_ENV}/env.sh
+. secrets/${MIX_ENV}/env.sh
 
 MIX_ENV=$MIX_ENV mix ecto.${ECTO_COMMAND}

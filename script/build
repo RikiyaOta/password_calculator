@@ -16,7 +16,7 @@ MIX_ENV=$1
 
 cd $(dirname $0)/../
 
-source secrets/${MIX_ENV}/env.sh
+. secrets/${MIX_ENV}/env.sh
 
 MIX_ENV=$MIX_ENV mix deps.clean --all
 MIX_ENV=$MIX_ENV mix deps.get
