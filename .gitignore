@@ -28,3 +28,4 @@ password_calculator-*.tar
 /priv/static/
 
 /config/dev.exs
+/secrets
