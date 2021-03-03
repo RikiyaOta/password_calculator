@@ -1,0 +1,33 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "" ]; then
+  echo "Pass MIX_ENV as the First argument."
+  exit 1
+fi
+
+if [ "$1" != "prod" ] && [ "$1" != "dev" ]; then
+  echo "Invalid MIX_ENV."
+  exit 1
+fi
+
+if [ "$2" = "" ]; then
+  echo "Pass ecto command as the second argument."
+  exit 1
+fi
+
+if [ "$2" != "migrate" ] && [ "$2" != "rollback" ] && [ "$2" != "migrations" ]; then
+  echo "Invalid ecto command."
+  exit 1
+fi
+
+
+MIX_ENV=$1
+ECTO_COMMAND=$2
+
+cd $(dirname $0)
+
+source ../secrets/${MIX_ENV}/env.sh
+
+MIX_ENV=$MIX_ENV mix "ecto.${ECTO_COMMAND}"

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "" ]; then
+  echo "Pass MIX_ENV as the First argument."
+  exit 1
+fi
+
+if [ "$1" != "prod" ] && [ "$1" != "dev" ]; then
+  echo "Invalid MIX_ENV."
+  exit 1
+fi
+
+MIX_ENV=$1
+
+cd $(dirname $0)
+
+source ../secrets/${MIX_ENV}/env.sh
+
+MIX_ENV=$MIX_ENV mix deps.clean --all
+MIX_ENV=$MIX_ENV mix deps.get
+MIX_ENV=$MIX_ENV mix compile --force
+MIX_ENV=$MIX_ENV mix release
