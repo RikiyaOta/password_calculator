@@ -10,8 +10,26 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :password_calculator, PasswordCalculatorWeb.Endpoint,
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  url: [scheme: "https", host: "api-password-calculator.rikiyaota.kyoto", port: 443],
+  http: [
+    port: String.to_integer(System.get_env("PORT") || "4000"),
+    transport_options: [socket_opts: [:inet6]]
+  ],
+  https: [
+    port: 443,
+    cipher_suite: :strong,
+    otp_app: :password_calculator,
+    keyfile:
+      System.get_env(
+        "/home/ubuntu/password_calculator/secrets/prod/ssl_certificate/api_password_calculator.key"
+      ),
+    certfile:
+      System.get_env(
+        "/home/ubuntu/password_calculator/secrets/prod/ssl_certificate/api_password_calculator.crt"
+      )
+  ],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  server: true
 
 # Do not print debug messages in production
 config :logger, level: :info
