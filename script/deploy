@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "" ]; then
+  echo "Pass MIX_ENV as the First argument."
+  exit 1
+fi
+
+if [ "$1" != "prod" ] && [ "$1" != "dev" ]; then
+  echo "Invalid MIX_ENV."
+  exit 1
+fi
+
+MIX_ENV=$1
+
+cd $(dirname $0)/../
+
+_build/${MIX_ENV}/rel/password_calculator/bin/password_calculator daemon
