@@ -25,6 +25,16 @@ secret_key_base =
 
 config :password_calculator, PasswordCalculatorWeb.Endpoint, secret_key_base: secret_key_base
 
+guardian_secret_key =
+  System.get_env("GUARDIAN_SECRET_KEY") ||
+    raise """
+    environment variable GUARDIAN_SECRET_KEY is missing.
+    """
+
+config :password_calculator, PasswordCalculator.Authentication.Guardian,
+  issuer: "password_calculator",
+  secret_key: guardian_secret_key
+
 # ## Using releases (Elixir v1.9+)
 #
 # If you are doing OTP releases, you need to instruct Phoenix
