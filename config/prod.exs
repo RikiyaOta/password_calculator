@@ -12,7 +12,7 @@ use Mix.Config
 config :password_calculator, PasswordCalculatorWeb.Endpoint,
   url: [scheme: "https", host: "api-password-calculator.rikiyaota.kyoto", port: 443],
   http: [
-    port: String.to_integer(System.get_env("PORT") || "4000"),
+    port: String.to_integer(System.get_env("PORT") || "80"),
     transport_options: [socket_opts: [:inet6]]
   ],
   https: [
