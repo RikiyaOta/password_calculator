@@ -12,6 +12,7 @@ defmodule PasswordCalculatorWeb.V1.Parameter.GeneratePasswordParameter do
     field :include_symbols, :boolean, default: true
     field :length, :integer, default: 12
     field :only_numeric, :boolean, default: false
+    field :case_type, Ecto.Enum, values: [:mix, :upper, :lower], default: :mix
   end
 
   @required_fields ~w(
@@ -19,6 +20,7 @@ defmodule PasswordCalculatorWeb.V1.Parameter.GeneratePasswordParameter do
     length
     include_symbols
     only_numeric
+    case_type
   )a
 
   @optional_fields ~w(
