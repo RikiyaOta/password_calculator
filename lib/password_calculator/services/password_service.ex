@@ -6,6 +6,7 @@ defmodule PasswordCalculator.Service.PasswordService do
   def generate_password_for(user, params) do
     mix_into_master_key(params.base_key, user.master_key)
     |> make_hash_string()
+    |> transform_case(params.case_type)
     |> exclude_symbols(params.include_symbols)
     |> exclude_alphabets_and_symbols(params.only_numeric)
     |> slice(params.length)
@@ -36,4 +37,13 @@ defmodule PasswordCalculator.Service.PasswordService do
 
   defp slice(string, length),
     do: String.slice(string, 0, length)
+
+  defp transform_case(string, _case_type = :mix),
+    do: string
+
+  defp transform_case(string, _case_type = :upper),
+    do: String.upcase(string)
+
+  defp transform_case(string, _case_type = :lower),
+    do: String.downcase(string)
 end
